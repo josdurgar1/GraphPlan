@@ -70,7 +70,7 @@ class PlanGraphLevel(object):
         self.actionLayer.addMutexActions(action1, action2)
         adds the pair (action1, action2) to the mutex set in the current action layer
         Note that action is *not* mutex with itself
-        """
+		
         currentLayerActions = self.actionLayer.getActions()
         "*** YOUR CODE HERE ***"
         for a_i in currentLayerActions:
@@ -78,6 +78,7 @@ class PlanGraphLevel(object):
                 if a_i != a_j and mutexActions(a_i, a_j, previousLayerMutexProposition):
                     if Pair(a_i,a_j) not in self.actionLayer.mutexActions:
                         self.actionLayer.addMutexActions(a_i,a_j)
+		"""
     
     def updatePropositionLayer(self):
         """
@@ -106,9 +107,8 @@ class PlanGraphLevel(object):
         You might want to use those functions:
         mutexPropositions(prop1, prop2, currentLayerMutexActions) returns true if prop1 and prop2 are mutex in the current layer
         self.propositionLayer.addMutexProp(prop1, prop2) adds the pair (prop1, prop2) to the mutex set of the current layer
-        """
-    
-        currentLayerPropositions = self.propositionLayer.getPropositions()
+		
+		currentLayerPropositions = self.propositionLayer.getPropositions()
         currentLayerMutexActions =  self.actionLayer.getMutexActions()
         "*** YOUR CODE HERE ***"
         for p_i in currentLayerPropositions:
@@ -116,6 +116,7 @@ class PlanGraphLevel(object):
             if p_i != p_j and mutexPropositions(p_i,p_j,currentLayerMutexActions):
               if Pair(p_i,p_j) not in self.propositionLayer.mutexPropositions:
                 self.propositionLayer.mutexPropositions.append(Pair(p_i,p_j))
+		"""
     
     
     def expand(self, previousLayer):
