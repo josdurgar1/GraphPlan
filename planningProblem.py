@@ -28,41 +28,33 @@ class PlanningProblem():
    
     
   def getStartState(self):
-    "*** YOUR CODE HERE ***"
+    """ Devuelve el estado inicial """
     return self.initialState
     
   def isGoalState(self, state):
-    """
-    Hint: you might want to take a look at goalStateNotInPropLayer function
-    """
-    "*** YOUR CODE HERE ***"
-    return goalStateNotInPropLayer(self, state)
+    """ Comprueba si es estado final """
+    for p in self.goal:
+      if p not in state:
+        return False
+    return True
     
   def getSuccessors(self, state):
-    """   
-    For a given state, this should return a list of triples, 
-    (successor, action, stepCost), where 'successor' is a 
-    successor to the current state, 'action' is the action
-    required to get there, and 'stepCost' is the incremental 
-    cost of expanding to that successor, 1 in our case.
-    You might want to this function:
-    For a list / set of propositions l and action a,
-    a.allPrecondsInList(l) returns true if the preconditions of a are in l
-    """
+    """ Para un estado dado, esto debe devolver una lista de tres valores,
+    (successor, action, stepCost), donde 'successor' es un sucesor para el
+    estado actual, 'action' es la acción requerida para llegar allí,
+    y 'stepCost' es el costo incremental de ampliar hasta el sucesor,
+    1 en nuestro caso. """
     self._expanded += 1
-    "*** YOUR CODE HERE ***"
-    """"successor= 
-    action="""
     successors = []
     for a in self.actions:
-      # Check if all preconditions of action a are in current state
+      # Comprueba si todas las condiciones previas de acción están en el estado actual
       if not a.isNoOp() and a.allPrecondsInList(state):  
-        # If action a adds a proposition, add it to state  
+        # Si la acción se suma a una proposición, se añade al estado
         successor = state + [p for p in a.getAdd() if p not in state]
-        # Get rid of propositions action a deletes from state
+        # Deshacerse de las proposiciones y acciones que se han borrado del estado
         successor = [p for p in successor if p not in a.getDelete()]
    
-        # Stepcost is 1
+        # El costo siempre suma 1
         successors.append((successor, a, 1))
     return successors
 
@@ -70,19 +62,16 @@ class PlanningProblem():
     return len(actions)
     
   def goalStateNotInPropLayer(self, propositions):
-    """
-    Helper function that returns true if all the goal propositions 
-    are in propositions
-    """
+    """ Devuelve verdadero si todas las proposiciones de
+    meta están en las proposiciones """
     for goal in self.goal:
       if goal not in propositions:
         return True
     return False
 
   def createNoOps(self):
-    """
-    Creates the noOps that are used to propagate propositions from one layer to the next
-    """
+    """ Crea los bucles que se utilizan para propagar
+    proposiciones de una capa a la siguiente """
     for prop in self.propositions:
       name = prop.name
       precon = []
@@ -94,37 +83,30 @@ class PlanningProblem():
       self.actions.append(act)  
       
 def maxLevel(state, problem):
-  """
-  The heuristic value is the number of layers required to expand all goal propositions.
-  If the goal is not reachable from the state your heuristic should return float('inf')  
-  A good place to start would be:
-  propLayerInit = PropositionLayer()          #create a new proposition layer
-  for prop in state:
-    propLayerInit.addProposition(prop)        #update the proposition layer with the propositions of the state
-  pgInit = PlanGraphLevel()                   #create a new plan graph level (level is the action layer and the propositions layer)
-  pgInit.setPropositionLayer(propLayerInit)   #update the new plan graph level with the the proposition layer
-  """
-  "*** YOUR CODE HERE ***"
+  """ El valor de la heurística es el número de capas
+  necesarias para expandir todas las proposiciones de gol.
+  Si el objetivo no es alcanzable desde el estado de su
+  heurística debe volver float('inf') """
   level = 0
   propLayerInit = PropositionLayer()
-  # Add all propositions in current state to proposition layer
+  # Añadir todas las proposiciones en el estado actual en la propositionLayer
   for p in state:
     propLayerInit.addProposition(p)
 
   pgInit = PlanGraphLevel()
   pgInit.setPropositionLayer(propLayerInit)
-  # Graph is a list of PlanGraphLevel objects
+  # El Grafo es una lista de objetos PlanGraphLevel
   graph = []
   graph.append(pgInit)
 
-  # While goal state is not in proposition layer, keep expanding
+  # Mientras que el estado objetivo no está en la capa proposición, seguimos expandiendolo
   while problem.goalStateNotInPropLayer(graph[level].getPropositionLayer().getPropositions()):
-    # If the graph has not changed between expansions, we should halt
+    # Si el grafo no ha cambiado entre expansiones, lo detenemos.
     if isFixed(graph, level):
       return float('inf')
     level += 1
     pgNext = PlanGraphLevel()
-    # Expand without mutex (relaxed version of problem)
+    # Expandir sin mutex (versión relajada de problema)
     pgNext.expandWithoutMutex(graph[level-1])
     graph.append(pgNext)
 
@@ -132,18 +114,15 @@ def maxLevel(state, problem):
 
 
 def levelSum(state, problem):
-  """
-  The heuristic value is the sum of sub-goals level they first appeared.
-  If the goal is not reachable from the state your heuristic should return float('inf')
-  """
-  "*** YOUR CODE HERE ***"
+  """ El valor heurístico es la suma de los sub-objetivos de
+  nivel de su primera aparición. Si el objetivo no es
+  alcanzable desde el estado de su heurística debe volver float ('inf')"""
     
   
 def isFixed(Graph, level):
-  """
-  Checks if we have reached a fixed point,
-  i.e. each level we'll expand would be the same, thus no point in continuing
-  """
+  """ Comprueba si hemos llegado a un punto fijo, es decir,
+  si cada nivel que vamos a ampliar es el mismo, no tiene
+  sentido continuar """
   if level == 0:
     return False  
   return len(Graph[level].getPropositionLayer().getPropositions()) == len(Graph[level - 1].getPropositionLayer().getPropositions())  
@@ -154,8 +133,8 @@ if __name__ == '__main__':
   if len(sys.argv) != 1 and len(sys.argv) != 4:
     print("Usage: PlanningProblem.py domainName problemName heuristicName(max, sum or zero)")
     exit()
-  domain = 'dwrDomain.txt'
-  problem = 'dwrProblem.txt'
+  domain = 'domain.txt'
+  problem = 'problem.txt'
   heuristic = lambda x,y: 0
   if len(sys.argv) == 4:
     domain = str(sys.argv[1])
@@ -175,7 +154,7 @@ if __name__ == '__main__':
   plan = aStarSearch(prob, heuristic)  
   elapsed = time.clock() - start
   if plan is not None:
-    print("Plan found with %d actions in %.2f seconds" % (len(plan), elapsed))
+    print("Plan encontrado con %d acciones en %.2f segundos" % (len(plan), elapsed))
   else:
-    print("Could not find a plan in %.2f seconds" %  elapsed)
-  print("Search nodes expanded: %d" % prob._expanded)
+    print("No se pudo encontrar un plan en %.2f seconds" %  elapsed)
+  print("Nodos de búsqueda expandidos: %d" % prob._expanded)
