@@ -1,0 +1,2 @@
+Initial state: be_ma be_an be_mb be_bc be_cn bc_n 
+Goal state: be_mc be_cb be_ba 

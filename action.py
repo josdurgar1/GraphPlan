@@ -7,14 +7,12 @@ class Action(object):
   """
   
   def __init__(self, name, pre, add, delete, isNoOp = False):
-    """
-    Constructor
-    """
-    self.pre = pre  	    # list of the precondition propositions 
-    self.add = add 		    # list of the propositions that will be added after applying the action    
-    self.delete = delete  # list of the propositions that will be deleted after applying the action    
-    self.name = name 	    # the name of the action as string
-    self.noOp = isNoOp 	  # true if the action is a noOp
+    #Constructor
+    self.pre = pre #Lista de las precondiciones
+    self.add = add #Lista de los estados que se añadirán si se aplica la acción
+    self.delete = delete #Lista de los estados que se borrarán después de aplicar la acción
+    self.name = name #El nombre de la acción
+    self.noOp = isNoOp #True si la acción es noOp
     
   def getPre(self):
     return self.pre
@@ -33,32 +31,21 @@ class Action(object):
   
   
   def isPosEffect(self, prop): 
-    """
-    True if the proposition prop is a positive effect of the action
-    """
+	#True si el estado tiene un efecto positivo sobre la acción
     return prop in self.add
   
   def isNegEffect(self, prop):
-    """
-    Returns true if the proposition prop is a negative effect of the action 
-    """
+    #True si el estado tiene un efecto, esta vez, negativo sobre la acción
     return prop in self.delete
 
   def allPrecondsInList(self, propositions):
-    """
-    Returns true if all the precondition of the action
-    are in the propositions list / set 
-    propositions must be iterable
-    """
+	#Devuelve true si todos las precondiciones de la acción están en la lista de estados
     for pre in self.pre:
       if pre not in propositions:
         return False
     return True
     
   def isNoOp(self):
-    """
-    Returns true if the action in noOp action
-    """
     return self.noOp
   
   def __eq__(self, other):

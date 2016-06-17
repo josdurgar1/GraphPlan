@@ -1,0 +1,75 @@
+Propositions:
+be_ma be_mb be_mc be_an be_bn be_cn be_ab be_ac be_ba be_bc be_ca be_cb bc_a bc_b bc_c bc_n 
+Actions:
+Name: cbm_a 
+pre: be_ma be_an bc_n 
+add: bc_a 
+delete: be_ma be_an bc_n 
+Name: pbm_a 
+pre: bc_a 
+add: be_ma be_an bc_n 
+delete: bc_a 
+Name: cbm_b 
+pre: be_mb be_bn bc_n 
+add: bc_b 
+delete: be_mb be_bn bc_n 
+Name: pbm_b 
+pre: bc_b 
+add: be_mb be_bn bc_n 
+delete: bc_b 
+Name: cbm_c 
+pre: be_mc be_cn bc_n 
+add: bc_c 
+delete: be_mc be_cn bc_n 
+Name: pbm_c 
+pre: bc_c 
+add: be_mc be_cn bc_n 
+delete: bc_c 
+Name: cbp_ab 
+pre: be_ba be_an bc_n 
+add: bc_a be_bn 
+delete: be_ba be_an bc_n 
+Name: pbp_ab 
+pre: bc_a be_bn 
+add: be_ba be_an bc_n 
+delete: bc_a be_bn 
+Name: cbp_ac 
+pre: be_ca be_an bc_n 
+add: bc_a be_cn 
+delete: be_ca be_an bc_n 
+Name: pbp_ac 
+pre: bc_a be_cn 
+add: be_ca be_an bc_n 
+delete: bc_a be_cn 
+Name: cbp_ba 
+pre: be_ab be_bn bc_n 
+add: bc_b be_an 
+delete: be_ab be_bn bc_n 
+Name: pbp_ba 
+pre: bc_b be_an 
+add: be_ab be_bn bc_n 
+delete: bc_b be_an 
+Name: cbp_bc 
+pre: be_cb be_bn bc_n 
+add: bc_b be_cn 
+delete: be_cb be_bn bc_n 
+Name: pbp_bc 
+pre: bc_b be_cn 
+add: be_cb be_bn bc_n 
+delete: bc_b be_cn 
+Name: cbp_ca 
+pre: be_ac be_cn bc_n 
+add: bc_c be_an 
+delete: be_ac be_cn bc_n 
+Name: pbp_ca 
+pre: bc_c be_an 
+add: be_ac be_cn bc_n 
+delete: bc_c be_an 
+Name: cbp_cb 
+pre: be_bc be_cn bc_n 
+add: bc_c be_bn 
+delete: be_bc be_cn bc_n 
+Name: pbp_cb 
+pre: bc_c be_bn 
+add: be_bc be_cn bc_n 
+delete: bc_c be_bn 

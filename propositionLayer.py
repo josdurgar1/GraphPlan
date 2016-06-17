@@ -1,45 +1,34 @@
 from util import Pair
 
 class PropositionLayer(object):
-  """
-  A class for an PropositionLayer  in a level of the graph.
-  The layer contains a set of propositions (Proposition objects) and a set of mutex propositions (Pair objects)
-  """
+  # El nivel contiene un conjunto de estados y un conjunto de estados mutex
   
   def __init__(self):
-    """
-    Constructor
-    """
-    self.propositions = set() 		                                      # set of all the propositions in the layer
-    self.mutexPropositions = set()                                      # set of pairs of propositions that are mutex in the layer
+    # Constructor
+    self.propositions = set() #Conjunto de todos los estados del nivel
+    self.mutexPropositions = set() #Conjunto de los pares de estados que están mutex en el nivel
     
-  def addProposition(self, proposition):                                # adds proposition to the propositions set
+  def addProposition(self, proposition): #Añade el estado al conjunto de estados
     self.propositions.add(proposition)
     
-  def removePropositions(self, proposition):                            # remove proposition from the propositions set
+  def removePropositions(self, proposition): #Borra el estado del conjunto de estados
     self.propositions.remove(proposition)
     
-  def getPropositions(self):                                            # retunrs the propositions set
+  def getPropositions(self): #Devuelve el conjunto de estados
 
     return self.propositions    
   
-  def addMutexProp(self, p1, p2):                                       # adds the pair(p1,p2) to the mutex propositions set
+  def addMutexProp(self, p1, p2): #Añade el par de estados (p1, p2) al conjunto de estados mutex
     self.mutexPropositions.add(Pair(p1,p2))
   
-  """
-  returns true if proposition p1 and proposition p2 are mutex at this layer
-  """
   def isMutex(self, p1, p2):
-    return Pair(p1,p2) in self.mutexPropositions  
+    return Pair(p1,p2) in self.mutexPropositions #Devuelve true si el estado p1 y el estado p2 están mutex en el nivel
   
-  def getMutexProps(self):                                              # returns the mutex propositions set
+  def getMutexProps(self): #Devuelve el conjunto de estados mutex
     return self.mutexPropositions  
   
   def allPrecondsInLayer(self, action):
-    """
-    returns true if all propositions that are preconditions of the
-    action exist in this layer (i.e. the action can be applied)
-    """
+	#Devuelve true si todos los estados que son precondiciones de la acción pasada por parámetros existen en esta capa
     actionPre = action.getPre()
     for pre in actionPre:
       if not(pre in self.propositions):

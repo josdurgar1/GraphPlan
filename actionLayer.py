@@ -10,37 +10,33 @@ class ActionLayer(object):
     """
     Constructor
     """
-    self.actions = set()                                                # set of all the actions in the layer
-    self.mutexActions = set()                                           # set of pairs of action that are mutex in the layer
+    self.actions = set() #Conjunto de todas las acciones en el nivel
+    self.mutexActions = set() #Conjunto de los pares de acciones mutex en el nivel
     
-  def addAction(self, act):                                             # adds the action act to the actions set
+  def addAction(self, act): #Añade la acción al conjunto de acciones
     self.actions.add(act)
     
     
-  def removeActions(self, act):                                         # removes the action act to the actions set
+  def removeActions(self, act): #Borra la acción del conjunto de acciones
     self.actions.remove(act)
     
-  def getActions(self):                                                 # returns the actions set
+  def getActions(self): #Devuelve el conjunto de acciones
     return self.actions
   
-  def getMutexActions(self):                                            # returns the mutex actions set
+  def getMutexActions(self): #Devuelve las acciones mutex
 
     return self.mutexActions
     
-  def addMutexActions(self, a1, a2):                                    # add the pair (a1,a2) to the mutex actions set
+  def addMutexActions(self, a1, a2): #Añade un par de acciones al conjunto de acciones mutex
     self.mutexActions.add(Pair(a1,a2))
   
   
   def isMutex(self, Pair):
-    """
-    Returns true if the pair of actions are mutex in this action layer
-    """
+	#Devuelve true si el conjuto de acciones están mutex en el nivel
     return Pair in self.mutexActions
   
   def effectExists(self, prop):
-    """
-    Returns true if at least one of the actions in this layer has the proposition prop in its add list
-    """ 
+	#Devuelve true si al menos una de las acciones del nivel actual tiene el estado en su lista de estado a añadir
     for act in self.actions:
       if prop in act.getAdd():
         return True

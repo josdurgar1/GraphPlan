@@ -1,17 +1,9 @@
 class Proposition(object):
-  """
-  A class for representing propositions. 
-  Each proposition object has a name and a list of producers,
-  that is the actions that have the proposition on their add set.
-  Two propositions are considered equal if they have the same name.
-  """
 
   def __init__(self,name):
-    """
-    Constructor
-    """
-    self.name = name	                                                  # the name of the proposition as string
-    self.producers = []                                                 # list of all possible actions in the layer that have the proposition on their add list
+    #Constructor
+    self.name = name #El nombre del estado, como cadena
+    self.producers = [] #Lista de todas las acciones en el nivel actual que tienen este estado en su lista de estados a añadir si se efectúa la acción
     
   def getName(self):
     return self.name

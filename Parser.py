@@ -3,14 +3,12 @@ from proposition import Proposition
 
 class Parser(object):
   """
-  A utility class for parsing the domain and problem.
+  Clase utilidad para extraer información de los archivos .txt
   """
 
 
   def __init__(self, domainFile, problemFile):
-    """
-    Constructor
-    """
+    #Constructor
     self.domainFile = domainFile
     self.problemFile = problemFile
     
