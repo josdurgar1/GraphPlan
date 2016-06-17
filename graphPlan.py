@@ -229,15 +229,10 @@ def independentPair(a1, a2):
 if __name__ == '__main__':	
 	import sys
 	import time
-	if len(sys.argv) != 1 and len(sys.argv) != 3:
-		print("Usage: GraphPlan.py domainName problemName")
-		exit()
-	domain = 'dwrDomain.txt'
-	problem = 'dwrProblem.txt'
-	if len(sys.argv) == 3:
-		domain = str(sys.argv[1])
-		problem = str(sys.argv[2])
-
+	
+	domain = 'domain.txt'
+	problem = 'problem.txt'
+	
 	gp = GraphPlan(domain, problem)
 	start = time.clock()
 	plan = gp.graphPlan()
